@@ -43,7 +43,7 @@ class DemoSession(Session):
             self.SessionObject.SetAvailableBalance(balance + 3)
             self.SessionObject.SetGamesWon(self.SessionObject.GetGamesWon() + 1)
         elif player < house:
-            self.SessionObject.SetGamesLost(self.SessionObject.GetGamesWon() + 1)
+            self.SessionObject.SetGamesLost(self.SessionObject.GetGamesLost() + 1)
             self.Logger.Information("CASA gana " + str(house) + " > " + str(player), "Juego")
         else:
             self.SessionObject.SetAvailableBalance(balance + 1)

@@ -93,7 +93,7 @@ class SessionObject:
         self.SetGamesWon(obj["GamesWon"])
         self.SetStarted(dateutil.parser.isoparse(obj["Started"]))
         self.SetAvailableBalance(obj["AvailableBalance"])
-        self.SetCurrency(obj["AvailableBalance"])
+        self.SetCurrency(obj["Currency"])
 
         return True
 
