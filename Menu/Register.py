@@ -25,6 +25,5 @@ class Register(Menu):
         so.SetGamesPlayed(0)
         so.SetGamesWon(0)
         so.SetGamesLost(0)
-        so.SetStarted(datetime.now())
         
         session.Register(so)

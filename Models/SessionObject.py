@@ -4,6 +4,7 @@ import dateutil.parser
 
 class SessionObject:
     def __init__(self):
+        self.SessionId = 0
         self.Username = ""
         self.Password = ""
         self.Firstname = ""
@@ -12,9 +13,14 @@ class SessionObject:
         self.GamesPlayed = 0
         self.GamesLost = 0
         self.GamesWon = 0
-        self.Started = datetime.now()
         self.AvailableBalance = 0.00
     
+    def SetSessionId(self, value):
+        self.SessionId = value
+
+    def GetSessionId(self):
+        return self.SessionId
+
     def SetCurrency(self, value):
         self.Currency = value
 
@@ -62,12 +68,6 @@ class SessionObject:
 
     def GetGamesWon(self):
         return self.GamesWon
-    
-    def SetStarted(self, value: datetime):
-        self.Started = value.isoformat()
-
-    def GetStarted(self) -> datetime:
-        return dateutil.parser.isoparse(self.Started)
 
     def SetAvailableBalance(self, value):
         self.AvailableBalance = value
@@ -91,7 +91,6 @@ class SessionObject:
         self.SetGamesPlayed(obj["GamesPlayed"])
         self.SetGamesLost(obj["GamesLost"])
         self.SetGamesWon(obj["GamesWon"])
-        self.SetStarted(dateutil.parser.isoparse(obj["Started"]))
         self.SetAvailableBalance(obj["AvailableBalance"])
         self.SetCurrency(obj["Currency"])
 

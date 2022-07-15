@@ -2,17 +2,18 @@ import random
 from Models.SessionObject import SessionObject
 from Session.Session import Session
 from Persistence.FilePersistence import File
+from Persistence.ConnectionDb import ConnectionDB
 
 class RealSession(Session):
     def Register(self, sessionObject: SessionObject):
         self.SessionObject = sessionObject
-        fp = File()
+        db = ConnectionDB()
 
-        if fp.Exists(sessionObject.GetUsername()):
+        if db.VerificarSesion(sessionObject.GetUsername()):
             self.Logger.Error("Ya existe una sesion de juego creada","Juego")
             return False
 
-        if not fp.Save(sessionObject.GetUsername(),sessionObject.toJSON()):
+        if not db.RegistrarSesion(sessionObject):
             self.Logger.Error("No se pudo crear la sesion de juego","Juego")
             return False
         
@@ -21,9 +22,11 @@ class RealSession(Session):
         return True
       
     def InitializeSession(self, username, password):
-        fp = File()
+        db = ConnectionDB()
+
+        self.SessionObject = db.ObtenerSesion(username)
         
-        if not self.SessionObject.fromJSON(fp.Read(username)):
+        if self.SessionObject is None or self.SessionObject.GetSessionId() == 0:
             self.Logger.Error("No se encontro su sesion","Juego")
             return False
 
@@ -61,8 +64,8 @@ class RealSession(Session):
             self.SessionObject.SetAvailableBalance(balance + 1)
             self.Logger.Information("Empate " + str(house) + " = " + str(player), "Juego")
 
-        fp = File()
-        if not fp.Save(self.SessionObject.GetUsername(),self.SessionObject.toJSON()):
+        db = ConnectionDB()
+        if not db.GuardarSesion(self.SessionObject):
             self.Logger.Error("No guardar el resultado del juego","Juego")
             return False
 

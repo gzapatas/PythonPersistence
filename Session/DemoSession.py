@@ -18,7 +18,6 @@ class DemoSession(Session):
         self.SessionObject.SetGamesPlayed(0)
         self.SessionObject.SetGamesWon(0)
         self.SessionObject.SetGamesLost(0)
-        self.SessionObject.SetStarted(datetime.now())
         self.SessionObject.SetPassword("")
 
         return True
